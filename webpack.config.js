@@ -44,7 +44,8 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: devMode ? '[name].[ext]' : '[name].[ext]?[hash8]'
+            name: devMode ? '[name].[ext]' : '[name].[ext]?[hash8]',
+            outputPath: 'assets'
           }
         }
       }
@@ -61,7 +62,7 @@ module.exports = {
       meta: [
         {
           name: 'viewport',
-          content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1'
+          content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
         }
       ],
       minify: {
