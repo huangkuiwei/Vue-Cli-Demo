@@ -10,7 +10,7 @@ module.exports = {
     app: './src/main.js'      //入口
   },
   output: {
-    filename: devMode ? "[name].js" : '[name].js?[chunkhash8]'      //出口
+    filename: devMode ? "[name].js" : '[name].js?[chunkhash:8]'      //出口
   },
   resolve: {
     alias: {
@@ -44,7 +44,7 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: devMode ? '[name].[ext]' : '[name].[ext]?[hash8]',
+            name: devMode ? '[name].[ext]' : '[name].[ext]?[hash:8]',
             outputPath: 'assets'
           }
         }
