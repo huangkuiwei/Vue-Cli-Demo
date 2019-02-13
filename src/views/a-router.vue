@@ -2,6 +2,7 @@
   <div>
     <h1>Welcome to a-router</h1>
     <button @click="show">活动规则</button>
+    <button @click="toast">toast</button>
   </div>
 </template>
 
@@ -13,6 +14,11 @@
       show() {
         this.$open(DemoDialog, {
           listeners: {}
+        })
+      },
+      toast() {
+        this.$toast('呵呵呵').then(() => {
+          this.$toast('哈哈哈')
         })
       }
     }

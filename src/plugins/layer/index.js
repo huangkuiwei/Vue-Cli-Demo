@@ -31,7 +31,8 @@ function open(component, options = {}) {
               'div',
               {
                 class: [
-                  'layer'
+                  'layer',
+                  options.name
                 ],
                 on: {
                   click: e => {
@@ -48,6 +49,7 @@ function open(component, options = {}) {
                 h(
                   component,
                   {
+                    props: options.props,
                     on: {
                       close: closeLayer,
                       ...options.listeners
@@ -73,9 +75,12 @@ function open(component, options = {}) {
       layer = layer.open = null
     }
   }
+
+  return closeLayer
 }
 
 export default {
+  open,
   install(Vue) {
     Vue.prototype.$open = open
   }
