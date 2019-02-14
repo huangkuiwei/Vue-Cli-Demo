@@ -10,6 +10,11 @@
   import DemoDialog from '../components/demo-dialog.vue'
 
   export default {
+    created() {
+      // this.$http.post('api/teamredpack/redpackNum', {
+      //   activityCode: 'teamredpack'
+      // });
+    },
     methods: {
       show() {
         this.$open(DemoDialog, {
