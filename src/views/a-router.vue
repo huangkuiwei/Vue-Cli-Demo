@@ -3,6 +3,7 @@
     <h1>Welcome to a-router</h1>
     <button @click="show">活动规则</button>
     <button @click="toast">toast</button>
+    <button @click="showMsg">msg</button>
   </div>
 </template>
 
@@ -11,9 +12,9 @@
 
   export default {
     created() {
-      // this.$http.post('api/teamredpack/redpackNum', {
-      //   activityCode: 'teamredpack'
-      // });
+      this.$http.post('api/teamredpack/redpackNum', {
+        activityCode: 'teamredpack'
+      });
     },
     methods: {
       show() {
@@ -25,6 +26,9 @@
         this.$toast('呵呵呵').then(() => {
           this.$toast('哈哈哈')
         })
+      },
+      showMsg() {
+        console.log(this.$store)
       }
     }
   }
