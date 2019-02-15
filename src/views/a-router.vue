@@ -3,19 +3,19 @@
     <h1>Welcome to a-router</h1>
     <button @click="show">活动规则</button>
     <button @click="toast">toast</button>
-    <button @click="showMsg">msg</button>
+    <button @click="showMsg">showMsg</button>
+    <button @click="showNewMsg">showNewMsg</button>
+    <button @click="$store.commit('changeMsg')">{{$store.state.msg}}</button>
+    <button @click="$store.commit('addNum')">{{$store.state.num}}</button>
+    <button @click="getRedPackCount">获取红包数量</button>
   </div>
 </template>
 
 <script>
   import DemoDialog from '../components/demo-dialog.vue'
+  import {mapActions} from 'vuex'
 
   export default {
-    created() {
-      this.$http.post('api/teamredpack/redpackNum', {
-        activityCode: 'teamredpack'
-      });
-    },
     methods: {
       show() {
         this.$open(DemoDialog, {
@@ -28,8 +28,12 @@
         })
       },
       showMsg() {
-        console.log(this.$store)
-      }
+        console.log(this.$store.state.msg)
+      },
+      showNewMsg() {
+        console.log(this.$store.getters.newMsg)
+      },
+      ...mapActions(['getRedPackCount'])
     }
   }
 </script>
