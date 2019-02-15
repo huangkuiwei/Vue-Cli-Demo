@@ -1,4 +1,4 @@
-import http from 'axios'
+import http from '../http/http'
 
 const actions = {
   getRedPackCount({commit}) {
