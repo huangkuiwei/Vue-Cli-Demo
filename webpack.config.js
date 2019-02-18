@@ -28,7 +28,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']      //把ES6 ES7等语法转换为ES5
+            presets: ['@babel/preset-env'],      //把ES6 ES7等语法转换为ES5
+            //动态地加载模块。
+            //调用 import() 之处，被作为分离的模块起点，意思是，被请求的模块和它引用的所有子模块，会分离到一个单独的 chunk 中。
+            plugins: ['@babel/plugin-syntax-dynamic-import']
           }
         }
       },

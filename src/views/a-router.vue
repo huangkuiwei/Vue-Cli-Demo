@@ -13,9 +13,13 @@
 
 <script>
   import DemoDialog from '../components/demo-dialog.vue'
-  import {mapActions} from 'vuex'
 
   export default {
+    created() {
+      import('../data/test.js').then(data => {
+        console.log(data)
+      })
+    },
     methods: {
       show() {
         this.$open(DemoDialog, {
@@ -33,7 +37,9 @@
       showNewMsg() {
         console.log(this.$store.getters.newMsg)
       },
-      ...mapActions(['getRedPackCount'])
+      getRedPackCount() {
+        this.$store.dispatch('getRedPackCount', {activityCode: 'teamredpack'})
+      }
     }
   }
 </script>
