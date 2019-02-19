@@ -8,13 +8,26 @@
     <button @click="$store.commit('changeMsg')">{{$store.state.msg}}</button>
     <button @click="$store.commit('addNum')">{{$store.state.num}}</button>
     <button @click="getRedPackCount">获取红包数量</button>
+    <editor :init="editorConfig"/>
   </div>
 </template>
 
 <script>
   import DemoDialog from '../components/demo-dialog.vue'
+  import Editor from '@tinymce/tinymce-vue'
 
   export default {
+    data() {
+      return {
+        // tinymce配置
+        editorConfig: {
+          menubar: false,
+          statusbar: false,
+          plugins: 'autoresize textcolor fullscreen',
+          toolbar: 'bold italic forecolor backcolor alignleft aligncenter alignright fullscreen'
+        }
+      }
+    },
     created() {
       import('../data/test.js').then(data => {
         console.log(data)
@@ -40,6 +53,9 @@
       getRedPackCount() {
         this.$store.dispatch('getRedPackCount', {activityCode: 'teamredpack'})
       }
+    },
+    components: {
+      Editor
     }
   }
 </script>

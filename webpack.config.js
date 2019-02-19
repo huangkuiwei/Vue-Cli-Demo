@@ -63,6 +63,10 @@ module.exports = {
       title: 'Hello Vue.js',
       template: require('html-webpack-template'),
       bodyHtmlSnippet: '<div id="app"></div>',
+      scripts: devMode ? [
+        // 引入tinymce.js(免费版)
+        '../node_modules/tinymce/tinymce.js'
+      ] : [],
       meta: [
         {
           name: 'viewport',
