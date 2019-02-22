@@ -1,4 +1,5 @@
-const path = require('path');     //引入 node.js -> path包
+const path = require('path');     // 引入 node.js -> path包
+const webpack = require('webpack');
 const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -7,10 +8,10 @@ const devMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 module.exports = {
   mode: devMode ? 'development' : 'production',
   entry: {
-    app: './src/main.js'      //入口
+    app: './src/main.js'      // 入口
   },
   output: {
-    filename: devMode ? "[name].js" : '[name].js?[chunkhash:8]'      //出口
+    filename: devMode ? "[name].js" : '[name].js?[chunkhash:8]'      // 出口
   },
   resolve: {
     alias: {
@@ -28,9 +29,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],      //把ES6 ES7等语法转换为ES5
-            //动态地加载模块。
-            //调用 import() 之处，被作为分离的模块起点，意思是，被请求的模块和它引用的所有子模块，会分离到一个单独的 chunk 中。
+            presets: ['@babel/preset-env'],      // 把ES6 ES7等语法转换为ES5
+            // 动态地加载模块。
+            // 调用 import() 之处，被作为分离的模块起点，意思是，被请求的模块和它引用的所有子模块，会分离到一个单独的 chunk 中。
             plugins: ['@babel/plugin-syntax-dynamic-import']
           }
         }
@@ -64,7 +65,7 @@ module.exports = {
       template: require('html-webpack-template'),
       bodyHtmlSnippet: '<div id="app"></div>',
       scripts: devMode ? [
-        // 引入tinymce.js(免费版)
+        // 引入tinymce.js(免费)
         '../node_modules/tinymce/tinymce.js'
       ] : [],
       meta: [
@@ -74,17 +75,23 @@ module.exports = {
         }
       ],
       minify: {
-        collapseWhitespace: true,                 //删除空格，压缩html
-        removeScriptTypeAttributes: true,         //清除所有script标签中的type="text/javascript"属性
-        removeStyleLinkTypeAttributes: true       //清楚所有Link标签上的type属性
+        collapseWhitespace: true,                 // 删除空格，压缩html
+        removeScriptTypeAttributes: true,         // 清除所有script标签中的type="text/javascript"属性
+        removeStyleLinkTypeAttributes: true       // 清除所有Link标签上的type属性
       }
+    }),
+    // DefinePlugin 允许创建一个在编译时可以配置的全局常量。
+    // 注意，因为这个插件直接执行文本替换，给定的值必须包含字符串本身内的实际引号。
+    // 通常，有两种方式来达到这个效果，使用 '"production"', 或者使用 JSON.stringify('production')。
+    new webpack.DefinePlugin({
+      WEBPACK_MODE: devMode ? "'development'" : "'production'"
     })
   ],
   devServer: {
     port: 8888,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: process.env.DEV_SERVER || 'http://localhost:8080',
         pathRewrite: {'^/api': ''}
       }
     }

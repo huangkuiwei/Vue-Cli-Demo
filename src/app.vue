@@ -6,9 +6,9 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    created(){
+      console.log(WEBPACK_MODE);
+    }
+  }
 </script>
-
-<style scoped>
-
-</style>
