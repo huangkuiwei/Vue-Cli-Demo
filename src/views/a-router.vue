@@ -9,6 +9,9 @@
     <button @click="$store.commit('addNum')">{{$store.state.num}}</button>
     <button @click="getRedPackCount">获取红包数量</button>
     <editor :init="editorConfig"/>
+    <button @click="$router.push('/detail?id=1')">detail</button>
+    <button @click="$router.push('/post/1')">post</button>
+    <button @click="$router.push('/not-found')">NotFound</button>
   </div>
 </template>
 
