@@ -1,9 +1,10 @@
-const path = require('path');     // 引入 node.js -> path包
+const path = require('path');     // 引入包
 const webpack = require('webpack');
 const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const devMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';      //定义mode环境
+const {dependencies} = require('./package');
+const devMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';      //定义全局mode环境
 
 module.exports = {
   mode: devMode ? 'development' : 'production',
@@ -11,13 +12,12 @@ module.exports = {
     app: './src/main.js'      // 入口
   },
   output: {
-    filename: devMode ? "[name].js" : '[name].js?[chunkhash:8]'      // 出口
+    filename: devMode ? "[name].js" : '[name].[chunkhash:8].js'      // 出口
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@components': path.resolve(__dirname, 'src/components'),
-      '@styles': path.resolve(__dirname, 'src/styles'),
       '@views': path.resolve(__dirname, 'src/views'),
       '@router': path.resolve(__dirname, 'src/router')
     }
@@ -49,7 +49,7 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: devMode ? '[name].[ext]' : '[name].[ext]?[hash:8]',
+            name: devMode ? '[name].[ext]' : '[name].[hash:8].[ext]',
             outputPath: 'assets'
           }
         }
@@ -64,10 +64,10 @@ module.exports = {
       title: 'Hello Vue.js',
       template: require('html-webpack-template'),
       bodyHtmlSnippet: '<div id="app"></div>',
-      scripts: devMode ? [
-        // 引入tinymce.js(免费)
-        '../node_modules/tinymce/tinymce.js'
-      ] : [],
+      scripts: devMode ? [] : [
+        `//cdn.bootcss.com/vue/${dependencies['vue'].substr(1)}/vue.min.js`,
+        `//cdn.bootcss.com/vue-router/${dependencies['vue-router'].substr(1)}/vue-router.min.js`,
+      ],
       meta: [
         {
           name: 'viewport',
@@ -87,10 +87,15 @@ module.exports = {
       WEBPACK_MODE: devMode ? "'development'" : "'production'"
     })
   ],
+  externals: devMode ? {} : {
+    vue: 'Vue',
+    'vue-router': 'VueRouter'
+  },
+  devtool: devMode ? 'eval' : 'source-map',
   devServer: {
     disableHostCheck: true,
     host: '0.0.0.0',
-    port: 8888,
+    port: 88,
     proxy: {
       '/api': {
         target: process.env.DEV_SERVER || 'http://localhost:8080',
