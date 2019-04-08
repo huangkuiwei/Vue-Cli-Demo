@@ -16,10 +16,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@views': path.resolve(__dirname, 'src/views'),
-      '@router': path.resolve(__dirname, 'src/router')
+      '@router': path.resolve(__dirname, 'src/router'),
+      '@styles': path.resolve(__dirname, 'src/styles')
     }
   },
   module: {
