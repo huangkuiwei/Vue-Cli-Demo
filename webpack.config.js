@@ -1,10 +1,10 @@
-const path = require('path');     // 引入包
-const webpack = require('webpack');
-const {VueLoaderPlugin} = require('vue-loader');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const {dependencies} = require('./package');
-const devMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';      //定义全局mode环境
+const path = require('path')     // 引入包
+const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { dependencies } = require('./package')
+const devMode = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'      //定义全局mode环境
 
 module.exports = {
   mode: devMode ? 'development' : 'production',
@@ -12,7 +12,7 @@ module.exports = {
     app: './src/main.js'      // 入口
   },
   output: {
-    filename: devMode ? "[name].js" : '[name].[chunkhash:8].js'      // 出口
+    filename: devMode ? '[name].js' : '[name].[chunkhash:8].js'      // 出口
   },
   resolve: {
     alias: {
@@ -64,7 +64,7 @@ module.exports = {
       bodyHtmlSnippet: '<div id="app"></div>',
       scripts: devMode ? [] : [
         `//cdn.bootcss.com/vue/${dependencies['vue'].substr(1)}/vue.min.js`,
-        `//cdn.bootcss.com/vue-router/${dependencies['vue-router'].substr(1)}/vue-router.min.js`,
+        `//cdn.bootcss.com/vue-router/${dependencies['vue-router'].substr(1)}/vue-router.min.js`
       ],
       meta: [
         {
@@ -82,7 +82,7 @@ module.exports = {
     // 注意，因为这个插件直接执行文本替换，给定的值必须包含字符串本身内的实际引号。
     // 通常，有两种方式来达到这个效果，使用 '"production"', 或者使用 JSON.stringify('production')。
     new webpack.DefinePlugin({
-      WEBPACK_MODE: devMode ? "'development'" : "'production'"
+      WEBPACK_MODE: devMode ? '\'development\'' : '\'production\''
     })
   ],
   externals: devMode ? {} : {
@@ -97,8 +97,8 @@ module.exports = {
     proxy: {
       '/api': {
         target: process.env.DEV_SERVER || 'http://localhost:8080',
-        pathRewrite: {'^/api': ''}
+        pathRewrite: { '^/api': '' }
       }
     }
   }
-};
+}
